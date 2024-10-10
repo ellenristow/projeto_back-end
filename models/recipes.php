@@ -20,8 +20,26 @@ class Recipes extends Base
 
         $query->execute();
 
-        var_dump($query->fetchAll());
-
         return $query->fetchAll();
     }
+
+    public function getItem($id){
+        $query = $this->db->prepare("
+                SELECT
+                    recipe_id, 
+                    user_id, 
+                    title, 
+                    instructions, 
+                    created_at, 
+                    updated_at
+                FROM 
+                    recipes
+                WHERE
+                    recipe_id = ?
+            ");
+
+        $query->execute([$id]);
+
+        return $query->fetch();
+    } 
 }

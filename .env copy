@@ -1,7 +1,0 @@
-DB_HOST="localhost"
-DB_NAME="marmita"
-DB_USER="root"
-DB_PASSWORD="mysql"
-#JWT_SECRET_KEY="UYu6e37q6K*BG!4"
-#SMTP_USERNAME=""
-#SMPT_PASSWORD=""

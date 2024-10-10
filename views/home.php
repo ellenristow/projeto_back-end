@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marmita</title>
-</head>
+<?php include "views/templates/head.php"; ?>
 <body>
+    <h1>Bem Vindo Marmiteiro!</h1>
     <main>
-        <?php
-        echo "alo";
+        <h2>Receitas</h2>
+        <?php 
+            foreach ($recipes as $recipe){
+                echo '
+                    <li>
+                        <h3>
+                        <a href="' .ROOT. '/recipe/'
+                        .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
+                        </h3>
+                        <p>likes</p>
+                    </li>
+                ';
+            }
         ?>
     </main>
 </body>
