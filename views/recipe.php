@@ -13,18 +13,20 @@
                     foreach ($ingredients as $ingredient){
                         echo '
                             <li>
-                                <p>
-                                <a href="' .ROOT. '/ingredients/'
-                                .$ingredient["ingredient_id"]. '">' .$ingredient["ingredient_name"]. '</a> - ' .$ingredient["quantity"]. ' '.$ingredient["unit_measurement"]. '
-                                </p>
+                                <p>' .$ingredient["ingredient_name"]. ' - ' .$ingredient["quantity"]. ' ' .$ingredient["unit_measurement"]. '</p>
                             </li>
                         ';
                     }
                     ?>
                 </ul>
             </div>
-            <h2>Modo de Preparo</h2>
-            <p><?php echo $recipes["instructions"]; ?></p>
+            <div>
+                <h2>Modo de Preparo</h2>
+                <p><?php echo $recipes["instructions"]; ?></p>
+            </div>
+            <div>
+                <p>criado por: </p>
+            </div>
         </div>
     </main>
 </body>
