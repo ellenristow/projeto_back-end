@@ -2,6 +2,7 @@
 <body>
     <h1>Bem Vindo Marmiteiro!</h1>
     <main>
+        <div>
         <h2>Receitas</h2>
         <?php 
             foreach ($recipes as $recipe){
@@ -11,11 +12,15 @@
                         <a href="' .ROOT. '/recipe/'
                         .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
                         </h3>
-                        <p>likes</p>
+                        <button>&#9825;</button><p> ' .$recipe["like_count"]. '</p>
                     </li>
                 ';
             }
         ?>
+        </div>
+        <div>
+        <h2>Categorias</h2>
+        </div>
     </main>
 </body>
 </html>
