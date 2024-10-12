@@ -7,15 +7,21 @@ class Recipes extends Base
     public function get(): array {
         $query = $this->db->prepare("
             SELECT 
-                recipe_id, 
-                user_id, 
-                title, 
-                instructions, 
-                created_at, 
-                updated_at
+                r.recipe_id, 
+                r.user_id, 
+                r.title, 
+                r.instructions, 
+                r.created_at, 
+                r.updated_at,
+                COUNT(rl.recipe_like) AS like_count
             FROM 
-                recipes
-        
+                recipes r
+            LEFT JOIN 
+                recipes_likes rl ON r.recipe_id = rl.recipe_id
+            AND 
+                rl.recipe_like = 1
+            GROUP BY 
+                r.recipe_id
         ");
 
         $query->execute();

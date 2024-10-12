@@ -4,20 +4,29 @@ require_once('base.php');
 
 class Likes extends Base
 {
-    public function getLikesByRecipe($recipe_id)
+    public function getRecipesWithLikes()
     {
         $query = $this->db->prepare("
-            SELECT 
-                COUNT(*) as like_count
+            .recipe_id, 
+                r.user_id, 
+                r.title, 
+                r.instructions, 
+                r.created_at, 
+                r.updated_at,
+                COALESCE(COUNT(l.recipe_like), 0) AS like_count
             FROM 
-                recipes_likes
-            WHERE 
-                recipe_id = ?
+                recipes r
+            LEFT JOIN 
+                recipes_likes l
+            ON 
+                r.recipe_id = l.recipe_id
             AND 
-                recipe_like = 1 
+                l.recipe_like = 1
+            GROUP BY 
+                r.recipe_id   recipe_like = ? 
         ");
 
-        $query->execute([$recipe_id]);
+        $query->execute( [1] );
 
         return $query->fetch();
         

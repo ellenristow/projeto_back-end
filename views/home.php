@@ -8,19 +8,18 @@
             foreach ($recipes as $recipe){
                 echo '
                     <li>
-                        <h4>
+                        <h3>
                         <a href="' .ROOT. '/recipe/'
                         .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
-                        </h4>
-                        <p>Likes:' .$recipe['like_count']. '</p>
-                        <button>&#9825;</button>
+                        </h3>
+                        <button>&#9825;</button><p> ' .$recipe["like_count"]. '</p>
                     </li>
                 ';
             }
         ?>
         </div>
         <div>
-        <h3>Categorias</h3>
+        <h2>Categorias</h2>
         </div>
     </main>
 </body>
