@@ -2,20 +2,26 @@
 <body>
     <h1>Bem Vindo Marmiteiro!</h1>
     <main>
+        <div>
         <h2>Receitas</h2>
         <?php 
             foreach ($recipes as $recipe){
                 echo '
                     <li>
-                        <h3>
+                        <h4>
                         <a href="' .ROOT. '/recipe/'
                         .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
-                        </h3>
-                        <p>likes</p>
+                        </h4>
+                        <p>Likes:' .$recipe['like_count']. '</p>
+                        <button>&#9825;</button>
                     </li>
                 ';
             }
         ?>
+        </div>
+        <div>
+        <h3>Categorias</h3>
+        </div>
     </main>
 </body>
 </html>
