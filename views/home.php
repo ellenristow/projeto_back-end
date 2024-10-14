@@ -12,14 +12,12 @@
                         <a href="' .ROOT. '/recipe/'
                         .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
                         </h3>
+                        <h4>' .$recipe["category"]. '</h4>
                         <button>&#9825;</button><p> ' .$recipe["like_count"]. '</p>
                     </li>
                 ';
             }
         ?>
-        </div>
-        <div>
-        <h2>Categorias</h2>
         </div>
     </main>
 </body>
