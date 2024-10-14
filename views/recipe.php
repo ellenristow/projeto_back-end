@@ -3,7 +3,6 @@
     <h1>
         <?php echo $recipes["title"]; ?>
     </h1>
-
     <main>
         <div>
             <h2>Ingredientes</h2>
@@ -25,7 +24,8 @@
                 <p><?php echo $recipes["instructions"]; ?></p>
             </div>
             <div>
-                <p>criado por: </p>
+                <p>Autor: <?php echo $recipes["user_name"]; ?></p>
+                <p>Criada em: <?php echo $recipes["created_at"]; ?></p>
             </div>
         </div>
     </main>

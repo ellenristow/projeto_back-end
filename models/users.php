@@ -47,4 +47,23 @@ class Users extends Base
         return $query->fetch();
     }
 
+    public function getByEmail($email){
+
+        $query = $this->db->prepare("
+
+            SELECT 
+                user_id, 
+                email,
+                password
+            FROM 
+                users
+            WHERE
+                email = ?
+        ");
+
+        $query->execute([$email]);
+
+        return $query->fetch();
+    }
+
 }
