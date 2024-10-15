@@ -49,7 +49,7 @@ class Ingredients extends Base {
                 rhi.quantity
             FROM
                 recipes_has_ingredients rhi
-            JOIN
+            INNER JOIN
                 ingredients i ON rhi.ingredient_id = i.ingredient_id
             WHERE
                 rhi.recipe_id = ?
