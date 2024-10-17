@@ -52,13 +52,13 @@ class Users extends Base
         $query = $this->db->prepare("
 
             SELECT 
-                user_id, 
+                user_id,
                 email,
                 password
             FROM 
                 users
             WHERE
-                email = ?
+                email = ?     
         ");
 
         $query->execute([$email]);

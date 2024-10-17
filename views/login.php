@@ -5,7 +5,12 @@
     <main>
         <div>
             <h2>Login</h2>
-            <form method="POST" action="<?php ROOT ?>/login/">
+            <?php
+                if(isset($message)){
+                    echo '<p role="alert">' .$message. '</p>';
+                }
+            ?>
+            <form method="POST" action="<?php ROOT ?>/login">
                 <div>
                     <label>
                         Email
