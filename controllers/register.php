@@ -25,15 +25,15 @@ if(isset($_POST["send"])){
         
         $model = new Users();
         
-        $users = $model->getByEmail($_POST["email"]);
-        
+        $user = $model->getByEmail($_POST["email"]);
+
         if(empty($user)){
 
             $createUser = $model->create($_POST);
 
             $_SESSION["user_id"] = $createUser["user_id"];
             header("Location: " . ROOT . "/");
-
+            exit();
         }else{
 
             $message = "Email já cadastrado";
