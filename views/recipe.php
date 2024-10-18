@@ -1,11 +1,14 @@
 <?php include "views/templates/head.php"; ?>
 <body>        
     <h1>
-        <?php echo $recipes["title"]; ?>
+        <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
     </h1>
     <main>
         <div>
-            <h2>Ingredientes</h2>
+            <h2><?php echo $recipes["title"]; ?></h2>
+        </div>
+        <div>
+            <h3>Ingredientes</h3>
             <div>
                 <ul>
                     <?php 
@@ -20,7 +23,7 @@
                 </ul>
             </div>
             <div>
-                <h2>Modo de Preparo</h2>
+                <h3>Modo de Preparo</h3>
                 <p><?php echo $recipes["instructions"]; ?></p>
             </div>
             <div>

@@ -1,7 +1,7 @@
 <?php include "views/templates/head.php"; ?>
 
 <body>
-    <h1>Bem Vindo Marmiteiro!</h1>
+    <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
     <main>
         <div>
             <h2>Login</h2>
@@ -29,7 +29,6 @@
                 <p>Ainda não tem uma conta?
                     <a href="<?php ROOT ?>/register/"> Crie sua conta aqui!</a>
                 </p>
-                
             </form>
         </div>
     </main>

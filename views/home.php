@@ -1,9 +1,11 @@
 <?php include "views/templates/head.php"; ?>
 <body>
-    <h1>Bem Vindo Marmiteiro!</h1>
+    <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
     <main>
         <div>
         <h2>Receitas para inspirar sua marmita diária</h2>
+        <h3><a href="<?php ROOT ?>/login/"> Login</h3>
+        <h3><a href="<?php ROOT ?>/register/"> Registre-se</h3>
         <?php 
             foreach ($recipes as $recipe){
                 echo '
