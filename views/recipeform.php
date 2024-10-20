@@ -26,7 +26,7 @@
                         <?php
                             foreach($ingredients as $ingredient){
                                 echo '
-                                    <option value="' .$ingredient["ingredient_id"]. '"> ' .$ingredient["ingredient_name"]. '
+                                    <option value="' .$ingredient["ingredient_id"]. '"> ' .$ingredient["ingredient_name"]. ' - ' .$ingredient["unit_measurement"]. '</option>
                             
                                 ';
                             }

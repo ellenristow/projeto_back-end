@@ -1,11 +1,27 @@
-<?php include "views/templates/head.php"; ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marmita</title>
+</head>
 <body>
-    <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
+    <?php
+        if (isset($_SESSION["user_id"])) {
+            echo '
+                <h1 id="' . $user["user_id"] . '">Bem Vindo, ' . $user["name"] . '</h1>
+            ';
+        } else {
+            echo '
+                <h1>Bem Vindo, Mamiteiro</h1>
+            ';
+        }
+    ?>
     <main>
         <div>
         <h2>Receitas para inspirar sua marmita diária</h2>
-        <h3><a href="<?php ROOT ?>/login/"> Login</h3>
-        <h3><a href="<?php ROOT ?>/register/"> Registre-se</h3>
+        <h3><a href="<?php ROOT ?>/login/"> Login</a></h3>
+        <h3><a href="<?php ROOT ?>/register/"> Registre-se</a></h3>
         <?php 
             foreach ($recipes as $recipe){
                 echo '

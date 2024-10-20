@@ -4,7 +4,6 @@ require_once "base.php";
 
 class Recipes extends Base
 {
-
     public $allowed_image_formats = [
         ".jpg" => "image/jpeg",
         ".avif" => "image/avif",
