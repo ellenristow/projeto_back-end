@@ -36,6 +36,9 @@
                 </p>
             </form>
         </div>
+        <div>
+            <p><a href="<?php ROOT ?>/">Voltar para a Home</a></p>
+        </div>
     </main>
 </body>
 </html>
