@@ -59,4 +59,23 @@ class Ingredients extends Base {
 
         return $query->fetchAll();
     }
+
+    public function addIngredient($data, $recipe_id){
+        //multiplas vezes
+        $query = $this->db->prepare("
+
+            INSERT INTO
+                recipes_has_ingredients (recipe_id, ingredient_id, quantity)
+            VALUES
+                ( ?, ?, ? )
+
+        ");
+
+        $query->execute([
+            $recipe_id,
+            $data["ingredient_id"],
+            $data["quantity"]
+        ]);
+      
+    }
 }

@@ -77,7 +77,7 @@ class Recipes extends Base
                     u.name AS user_name
                 FROM 
                     recipes r
-                JOIN 
+                INNER JOIN 
                     users u ON r.user_id = u.user_id
                 WHERE
                     recipe_id = ?
@@ -90,6 +90,7 @@ class Recipes extends Base
     
     public function create ($data) {
 
+        //avaliar a necessidade deste validador 
         if($this->validator($data) === false){
             return ["error" => "invalid input"];
         }
@@ -103,6 +104,28 @@ class Recipes extends Base
         $file_name = bin2hex(random_bytes(16));
         $file_extension = array_search($media_type, $this->allowed_image_formats);
         $full_path = "images/" . $file_name . $file_extension;
+
+        file_put_contents($full_path, $bin);
+
+        $query = $this->db->prepare("
+
+            INSERT INTO
+                recipes (user_id, title, instructions, created_at, updated_at, image)
+            VALUES
+                ( ?, ?, ?, NOW(), NOW(), ? )
+            
+        ");
+        
+        $query->execute([
+            $_SESSION["user_id"], 
+            $data["title"],
+            $data["instructions"],
+            $full_path
+        ]);
+        
+        $data["recipe_id"] = $this->db->lastInsertId();
+
+        return $data;
     }
     
 }
