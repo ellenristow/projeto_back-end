@@ -11,15 +11,19 @@ $categories = $categoryModel->get();
 
 if (isset($_POST["send"])){
 
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+
     foreach($_POST as $key => $value){
 
         if (is_array($value)) {
-        foreach ($value as &$item) {
-            $item = htmlspecialchars(strip_tags(trim($item)));
+            foreach ($value as &$item) {
+                $item = htmlspecialchars(strip_tags(trim($item)));
+            }
+        } else {
+            $_POST[$key] = htmlspecialchars(strip_tags(trim($value)));
         }
-    } else {
-        $_POST[$key] = htmlspecialchars(strip_tags(trim($value)));
-    }
     }
 
     if (
@@ -34,18 +38,22 @@ if (isset($_POST["send"])){
         mb_strlen($_POST["instructions"]) <= 2000 
     ) {
         require("models/recipes.php");
-        require("models/ingredients.php");
 
         $model = new Recipes();
         $newRecipe = $model->create($_POST);
+       
+        $modelIngredient = new Ingredients();
+        $modelIngredient->addIngredient($_POST, $newRecipe["recipe_id"]);
 
-        $model = new Ingredients();
-        $model->addIngredient($_POST, $newRecipe["recipe_id"]);
+        $modelCategory = new Category();
+        $modelCategory->addCategory($_POST, $newRecipe["recipe_id"]);
 
-        header("Location: ".ROOT."/recipe");
+        header("Location: ".ROOT."/recipe"); 
         exit();
 
-    }    
+    } else {
+        $message = "A receita não foi criada. Verifique os dados e tente novamente.";
+    }  
 
 }
 

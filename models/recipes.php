@@ -91,28 +91,24 @@ class Recipes extends Base
     public function create ($data) {
 
         //avaliar a necessidade de todo este codigo validador da imagem. 
-        if($this->validator($data) === false){
+       /*  if($this->validator($data) === false){
             return ["error" => "invalid input"];
-        }
-
-        $bin = base64_decode($data["image"]);
-
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
-        $tmp = explode(";", $finfo->buffer($bin));
-        $media_type = $tmp[0];
+        } */
+        //$_FILES
+        /* $bin = base64_decode($data["image"]); */
 
         $file_name = bin2hex(random_bytes(16));
-        $file_extension = array_search($media_type, $this->allowed_image_formats);
+        $file_extension = ".jpeg"; /* array_search(($data["media_type"]), $this->allowed_image_formats); */
         $full_path = "images/" . $file_name . $file_extension;
 
-        file_put_contents($full_path, $bin);
+        /* file_put_contents($full_path, $bin); */
 
         $query = $this->db->prepare("
 
             INSERT INTO
-                recipes (user_id, title, instructions, created_at, updated_at, image)
+                recipes (user_id, title, instructions, image)
             VALUES
-                ( ?, ?, ?, NOW(), NOW(), ? )
+                ( ?, ?, ?, ? )
             
         ");
         
@@ -124,7 +120,7 @@ class Recipes extends Base
         ]);
         
         $data["recipe_id"] = $this->db->lastInsertId(); 
-
+        
         return $data;
     }
     

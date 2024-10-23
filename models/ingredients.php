@@ -61,22 +61,22 @@ class Ingredients extends Base {
     }
 
     public function addIngredient($data, $recipe_id){
-        //multiplas vezes
-        $query = $this->db->prepare("
+        
+        foreach ($data["ingredient_id"] as $key => $ingredient_id) {
 
-            INSERT INTO
-                recipes_has_ingredients (recipe_id, ingredient_id, quantity)
-            VALUES
-                ( ?, ?, ? )
+            $query = $this->db->prepare("
 
-        ");
+                INSERT INTO
+                    recipes_has_ingredients (recipe_id, ingredient_id, quantity)
+                VALUES
+                    ( ?, ?, ? )
 
-        foreach ($data as $ingredient) {
+            ");
 
             $query->execute([
                 $recipe_id,
-                $ingredient["ingredient_id"],
-                $ingredient["quantity"]
+                $ingredient_id,
+                $data["quantity"][$key]
             ]);   
         }
     

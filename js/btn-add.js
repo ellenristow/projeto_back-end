@@ -5,7 +5,7 @@ function addCategory() {
 	newCategoryDiv.innerHTML = `
         <label>
             Categoria
-            <select name="category[]">
+            <select name="category_id[]">
                 ${categories.map(category => `<option value="${category.category_id}">${category.category_name}</option>`).join('')}
             </select>
         </label>
@@ -20,7 +20,7 @@ function addIngredient() {
 	newIngredientDiv.innerHTML = `
         <label>
             Ingrediente
-            <select name="ingredient[]">
+            <select name="ingredient_id[]">
                 ${ingredients.map(ingredient => `<option value="${ingredient.ingredient_id}">${ingredient.ingredient_name} - ${ingredient.unit_measurement}</option>`).join('')}
             </select>
         </label>

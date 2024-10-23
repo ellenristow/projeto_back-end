@@ -10,6 +10,7 @@
         const categories = <?php echo json_encode($categories); ?>;
         const ingredients = <?php echo json_encode($ingredients); ?>;
     </script>
+    <?php require("views/templates/nav.php"); ?>
     <main>
         <div>
             <h2>Insira sua receita</h2>
@@ -25,7 +26,7 @@
                     <div class="category-group">
                         <label>
                             Categoria
-                            <select name="category[]">
+                            <select name="category_id[]">
                                 <?php
                                     if (isset($categories) && is_array($categories) && count($categories) > 0) {
                                         foreach($categories as $category){
@@ -45,7 +46,7 @@
                     <div class="ingredient-group">
                         <label>
                             Ingrediente
-                            <select name="ingredient[]">
+                            <select name="ingredient_id[]">
                                 <?php
                                     if (isset($ingredients) && is_array($ingredients) && count($ingredients) > 0) {
                                         foreach($ingredients as $ingredient){
@@ -83,9 +84,6 @@
                 <button type="submit" name="send">Enviar</button>
             </div> 
         </form>
-        <div>
-            <p><a href="<?php echo ROOT ?>/">Voltar para a Home</a></p>
-        </div>
     </main>
     <script src="../js/btn-add.js"></script>
 </body>
