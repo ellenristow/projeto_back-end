@@ -6,6 +6,7 @@
     <title>Marmita</title>
 </head>
 <body>
+    <?php require("views/templates/nav.php"); ?>
     <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
     <main>
         <div>
