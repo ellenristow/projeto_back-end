@@ -6,22 +6,35 @@
     <title>Marmita</title>
 </head>
 <body>
+    <h1>Receitas para inspirar sua marmita diária</h1>
+    <main>
     <?php
         if (isset($_SESSION["user_id"])) {
             echo '
-                <h1 id="' . $user["user_id"] . '">Bem Vindo, ' . $user["name"] . '</h1>
+                <h2 id="' . $user["user_id"] . '">Bem Vindo, ' . $user["name"] . '</h2>
+                <button><a href="' .ROOT. '/recipeform/">Criar Receita</a></button>
             ';
         } else {
             echo '
-                <h1>Bem Vindo, Mamiteiro</h1>
+                <h2>Bem Vindo, Mamiteiro</h2>
             ';
         }
     ?>
-    <main>
         <div>
-        <h2>Receitas para inspirar sua marmita diária</h2>
-        <h3><a href="<?php ROOT ?>/login/"> Login</a></h3>
-        <h3><a href="<?php ROOT ?>/register/"> Registre-se</a></h3>
+            <?php 
+                if(isset($_SESSION["user_id"])){
+                    echo '<h4><a href="<?php ROOT ?>/logout/">Logout</a></h4>
+                    ';
+                } else {
+                    echo '
+                    <h4><a href="<?php ROOT ?>/login/"> Login</a></h4>
+                    <h4><a href="<?php ROOT ?>/register/"> Registre-se</a></h4>
+                    ';
+                }
+            ?>
+        </div>
+        <div>
+        <h2>Receitas</h2>
         <?php 
             foreach ($recipes as $recipe){
                 echo '

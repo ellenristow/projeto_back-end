@@ -13,13 +13,19 @@ if (isset($_POST["send"])){
 
     foreach($_POST as $key => $value){
 
+        if (is_array($value)) {
+        foreach ($value as &$item) {
+            $item = htmlspecialchars(strip_tags(trim($item)));
+        }
+    } else {
         $_POST[$key] = htmlspecialchars(strip_tags(trim($value)));
+    }
     }
 
     if (
         !empty($_POST["title"]) &&
         !empty($_POST["instructions"]) &&
-        !empty($_POST["ingredient_name"]) && is_array($_POST["ingredient_name"]) &&
+        !empty($_POST["ingredient_id"]) && is_array($_POST["ingredient_id"]) &&
         !empty($_POST["quantity"]) && is_array($_POST["quantity"]) &&
         !empty($_POST["category_id"]) && is_array($_POST["category_id"]) && 
         mb_strlen($_POST["title"]) >= 3 &&

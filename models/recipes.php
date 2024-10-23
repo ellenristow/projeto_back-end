@@ -90,7 +90,7 @@ class Recipes extends Base
     
     public function create ($data) {
 
-        //avaliar a necessidade deste validador 
+        //avaliar a necessidade de todo este codigo validador da imagem. 
         if($this->validator($data) === false){
             return ["error" => "invalid input"];
         }
@@ -120,10 +120,10 @@ class Recipes extends Base
             $_SESSION["user_id"], 
             $data["title"],
             $data["instructions"],
-            $full_path
+            $full_path //verificR
         ]);
         
-        $data["recipe_id"] = $this->db->lastInsertId();
+        $data["recipe_id"] = $this->db->lastInsertId(); 
 
         return $data;
     }

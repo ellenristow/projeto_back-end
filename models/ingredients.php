@@ -71,11 +71,15 @@ class Ingredients extends Base {
 
         ");
 
-        $query->execute([
-            $recipe_id,
-            $data["ingredient_id"],
-            $data["quantity"]
-        ]);
-      
+        foreach ($data as $ingredient) {
+
+            $query->execute([
+                $recipe_id,
+                $ingredient["ingredient_id"],
+                $ingredient["quantity"]
+            ]);   
+        }
+    
+        return $data;
     }
 }
