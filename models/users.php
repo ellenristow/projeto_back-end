@@ -53,7 +53,8 @@ class Users extends Base
 
             SELECT 
                 user_id,
-                password
+                password,
+                name
             FROM 
                 users
             WHERE

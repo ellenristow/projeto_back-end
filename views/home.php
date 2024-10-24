@@ -7,16 +7,31 @@
 </head>
 <body>
     <?php require("views/templates/nav.php"); ?>
-    <h1>Receitas para inspirar sua marmita diária</h1>
-    <main>
-    <?php
-        if (isset($_SESSION["user_id"])) {
+        <?php
+            if (isset($_SESSION["user_id"])) {
 
-            echo '
-                <button><a href="' .ROOT. '/recipeform/">Criar Receita</a></button>
-            ';
-        } 
-    ?>
+                echo '
+                       <h1> Bem vindo, ' . $_SESSION["name"] . '</h1>
+                ';
+            } else {
+
+                echo '
+                       <h1>Bem vindo!</h1>
+                ';
+            } 
+        ?>
+    <h2>Receitas para inspirar sua marmita diária</h2>
+    <main>
+        <div>
+        <?php
+            if (isset($_SESSION["user_id"])) {
+
+                echo '
+                    <button><a href="' .ROOT. '/recipeform/">Criar Receita</a></button>
+                ';
+            } 
+        ?>
+        </div>
         <div>
         <h2>Receitas</h2>
         <?php 

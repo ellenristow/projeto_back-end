@@ -21,6 +21,7 @@ if(isset($_POST["send"])){
             password_verify($_POST["password"], $user["password"])
         ){
             $_SESSION["user_id"] = $user["user_id"];
+            $_SESSION["name"] = $user["name"];
             header("Location: ".ROOT."/");
             exit();
         } else {
