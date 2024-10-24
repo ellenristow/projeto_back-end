@@ -62,7 +62,7 @@
                             Quantidade
                             <input type="text" name="quantity[]" required minlength="1" maxlength="10">
                         </label>
-                        <span id="unit_measurement">ml</span>
+                        <span class="unit_measurement"></span>
                     </div>
                 </div>
                 <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
@@ -85,6 +85,6 @@
             </div> 
         </form>
     </main>
-    <script src="../js/btn-add.js"></script>
+    <script src="../js/recipeform.js"></script>
 </body>
 </html>

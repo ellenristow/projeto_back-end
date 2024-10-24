@@ -42,13 +42,13 @@ if (isset($_POST["send"])){
         $model = new Recipes();
         $newRecipe = $model->create($_POST);
        
-        $modelIngredient = new Ingredients();
-        $modelIngredient->addIngredient($_POST, $newRecipe["recipe_id"]);
+        $model = new Ingredients();
+        $model->addIngredient($_POST, $newRecipe["recipe_id"]);
 
-        $modelCategory = new Category();
-        $modelCategory->addCategory($_POST, $newRecipe["recipe_id"]);
+        $model = new Category();
+        $model->addCategory($_POST, $newRecipe["recipe_id"]);
 
-        header("Location: ".ROOT."/recipe"); 
+        header("Location: ".ROOT."/recipe/" . $newRecipe["recipe_id"]); 
         exit();
 
     } else {

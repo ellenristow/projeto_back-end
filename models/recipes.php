@@ -33,6 +33,12 @@ class Recipes extends Base
         }
     }
 
+    public function validateImage($image){
+
+
+
+    }
+
     public function get(): array {
         $query = $this->db->prepare("
             SELECT 
@@ -94,7 +100,7 @@ class Recipes extends Base
        /*  if($this->validator($data) === false){
             return ["error" => "invalid input"];
         } */
-        //$_FILES
+        // $_FILES
         /* $bin = base64_decode($data["image"]); */
 
         $file_name = bin2hex(random_bytes(16));

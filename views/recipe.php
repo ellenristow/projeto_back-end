@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marmita</title>
 </head>
-<body>        
+<body>
+    <?php require("views/templates/nav.php"); ?>        
     <h1><?php echo $recipes["title"]; ?></h1>
     <main>
         <div>
