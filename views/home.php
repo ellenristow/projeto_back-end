@@ -43,7 +43,7 @@
                         .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
                         </h3> ';
                         if(!empty($recipe["image"])){
-                            echo ' <img src="' . $recipe['image'] . '" alt="Imagem da receita"/> ';
+                            echo ' <img src="images/' . $recipe['image'] . '" alt="Imagem da receita"/> ';
                         }
                     echo '    
                         <h4>Categoria: ' .$recipe["category"]. '</h4>

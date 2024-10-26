@@ -2,6 +2,7 @@
 
 require("models/ingredients.php");
 require("models/category.php");
+require("models/recipes.php");
 
 $ingredientsModel = new Ingredients();
 $ingredients = $ingredientsModel->get();
@@ -9,11 +10,18 @@ $ingredients = $ingredientsModel->get();
 $categoryModel = new Category();
 $categories = $categoryModel->get();
 
-if (isset($_POST["send"])){
+if(isset($_POST["send-image"])) {
 
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+    $image = $_FILES["image"];
+
+    $modelRecipe = new Recipes();
+    $modelRecipe->addImage($_FILES["image"]);
+
+}
+
+if (isset($_POST["send"])) {
+
+    $image = $_FILES["image"];
 
     foreach($_POST as $key => $value){
 
@@ -25,36 +33,41 @@ if (isset($_POST["send"])){
             $_POST[$key] = htmlspecialchars(strip_tags(trim($value)));
         }
     }
-
+    //verificaçao para nao repetir o nome da imagem dado pelo usuario 
     if (
         !empty($_POST["title"]) &&
         !empty($_POST["instructions"]) &&
         !empty($_POST["ingredient_id"]) && is_array($_POST["ingredient_id"]) &&
         !empty($_POST["quantity"]) && is_array($_POST["quantity"]) &&
-        !empty($_POST["category_id"]) && is_array($_POST["category_id"]) && 
+        !empty($_POST["category_id"]) && is_array($_POST["category_id"]) &&
         mb_strlen($_POST["title"]) >= 3 &&
         mb_strlen($_POST["title"]) <= 50 &&
         mb_strlen($_POST["instructions"]) >= 50 &&
-        mb_strlen($_POST["instructions"]) <= 2000 
+        mb_strlen($_POST["instructions"]) <= 2000  
     ) {
-        require("models/recipes.php");
-
-        $model = new Recipes();
-        $newRecipe = $model->create($_POST);
+        $imageName = basename($image["name"]);
        
-        $model = new Ingredients();
-        $model->addIngredient($_POST, $newRecipe["recipe_id"]);
+        $modelRecipe = new Recipes();
+        $newRecipe = $modelRecipe->create($_POST, $imageName);
 
-        $model = new Category();
-        $model->addCategory($_POST, $newRecipe["recipe_id"]);
+        $newImage = $modelRecipe->addImage($_FILES["image"]);
+       
+        $modelIngredients = new Ingredients();
+        $modelIngredients->addIngredient($_POST, $newRecipe["recipe_id"]);
+
+        $modelCategory = new Category();
+        $modelCategory->addCategory($_POST, $newRecipe["recipe_id"]);
 
         header("Location: ".ROOT."/recipe/" . $newRecipe["recipe_id"]); 
         exit();
 
     } else {
         $message = "A receita não foi criada. Verifique os dados e tente novamente.";
-    }  
-
+    }
+    
 }
 
 require("views/recipeform.php");
+
+
+//pegar imagem pra mandar pra uma pasta, que ta no projeto, e depos pegar no nome da imagem.jpg e trazer para a view. 

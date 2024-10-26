@@ -1,10 +1,11 @@
 <nav>
     <ul>
-    <li><a href="<?php ROOT ?>/">Home</a></li>
+    <li><a href="<?= ROOT ?>/">Home</a></li>
     <?php
             if( isset($_SESSION["user_id"]) ){           
     ?>
             <li><a href="<?= ROOT ?>/logout/">Logout</a></li>
+            <li><a href="<?= ROOT ?>/profile/<?= $_SESSION['user_id'] ?>">Conta</a></li>
     <?php
             }
             else{

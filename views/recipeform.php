@@ -15,7 +15,7 @@
         <div>
             <h2>Insira sua receita</h2>
         </div>
-        <form method="POST" action="<?php echo ROOT ?>/recipeform">
+        <form method="POST" action="<?php echo ROOT ?>/recipeform" enctype="multipart/form-data">
             <div>
                 <label>
                     Nome da Receita
@@ -41,7 +41,8 @@
                     </div>
                 </div>
                 <button type="button" id="add-category" onclick="addCategory()">Adicionar Categoria</button>
-                <br>
+                <button type="button" id="delete-category" onclick="deleteCategory()">Deletar Categoria</button>
+                <br><br>
                 <div id="ingredients-container">
                     <div class="ingredient-group">
                         <label>
@@ -66,7 +67,8 @@
                     </div>
                 </div>
                 <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
-                <br>
+                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Adicionar Ingrediente</button>
+                <br><br>
                 <div>
                     <label>
                         Instruções
@@ -82,6 +84,11 @@
             <br>
             <div>
                 <button type="submit" name="send">Enviar</button>
+            </div> 
+        </form>
+        <form method="POST" action="<?php echo ROOT ?>/recipeform" enctype="multipart/form-data">
+            <div>
+                <button type="submit" name="send-image">Enviar</button>
             </div> 
         </form>
     </main>

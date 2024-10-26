@@ -15,6 +15,15 @@ function addCategory() {
 	categoriesContainer.appendChild(newCategoryDiv);
 }
 
+function deleteCategory() {
+	const categoriesContainer = document.getElementById('categories-container');
+	const lastCategory = categoriesContainer.querySelector('.category-group:last-child');
+
+	if (lastCategory) {
+		lastCategory.remove();
+	}
+}
+
 function addIngredient() {
 	const ingredientsContainer = document.getElementById('ingredients-container');
 	const newIngredientDiv = document.createElement('div');
@@ -33,4 +42,13 @@ function addIngredient() {
         <span class="unit_measurement"></span>
     `;
 	ingredientsContainer.appendChild(newIngredientDiv);
+}
+
+function deleteIngredient() {
+	const ingredientsContainer = document.getElementById('ingredients-container');
+	const lastIngredient = ingredientsContainer.querySelector('.ingredient-group:last-child');
+
+	if (lastIngredient) {
+		lastIngredient.remove();
+	}
 }
