@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marmita</title>
+    <title>Error <?= isset($statusCode) ? htmlspecialchars($statusCode) : 'Unknown' ?></title>
 </head>
 <body>
- 
     <div class="error-container">
-        <h1>Error <?= $statusCode ?></h1>
-        <h3><?= $errorMessage ?></h3>
+        <h1>Error <?= htmlspecialchars($statusCode) ?></h1>
+        <h3><?= htmlspecialchars($errorMessage)?></h3>
  
-        <a href="<?= $homeUrl ?>" class="btn">Home</a>
+        <a href="<?= htmlspecialchars($home) ?>" class="btn">Home</a>
     </div>
  
 </body>
- 
 </html>

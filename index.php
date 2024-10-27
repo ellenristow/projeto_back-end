@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 define( "ENV", parse_ini_file(".env"));
 define("ROOT", "");
 
@@ -18,7 +22,8 @@ if(!empty($url_parts[2])){
 
 if(!file_exists("controllers/" .$controller. ".php")){
     http_response_code(404);
-    die("Not Found");
+    include("controllers/error.php");
+    exit();
 }
 
 require("controllers/" . $controller . ".php");

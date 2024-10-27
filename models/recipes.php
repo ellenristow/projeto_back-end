@@ -15,28 +15,9 @@ class Recipes extends Base
         if(empty($data)){
             return false;
         }
-
+        
         extract($data);
-
-        $decoded_image = base64_decode($image);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-
-        $tmp = explode(";", $finfo->buffer($decoded_image));
-        $media_type = $tmp[0];
-
-        if(
-            $decoded_image === false ||
-            mb_strlen($image) > 1000000 ||
-            !in_array($media_type, $this->allowed_image_formats)
-        ) {
-            return false;
-        }
-    }
-
-    public function validateImage($image){
-
-
-
+    
     }
 
     public function get(): array {
@@ -70,64 +51,95 @@ class Recipes extends Base
         return $query->fetchAll();
     }
 
-    public function getItem($id){
+    public function getItem($recipe_id){
         $query = $this->db->prepare("
-                SELECT
-                    r.recipe_id, 
-                    r.user_id, 
-                    r.title, 
-                    r.instructions, 
-                    r.created_at, 
-                    r.updated_at,
-                    r.image,
-                    u.name AS user_name
-                FROM 
-                    recipes r
-                INNER JOIN 
-                    users u ON r.user_id = u.user_id
-                WHERE
-                    recipe_id = ?
-            ");
+            SELECT
+                r.recipe_id, 
+                r.user_id, 
+                r.title, 
+                r.instructions, 
+                r.created_at, 
+                r.updated_at,
+                r.image,
+                u.name AS user_name
+            FROM 
+                recipes r
+            INNER JOIN 
+                users u ON r.user_id = u.user_id
+            WHERE
+                recipe_id = ?
+        ");
 
-        $query->execute([$id]);
+        $query->execute([$recipe_id]);
 
         return $query->fetch();
     }
     
-    public function create ($data) {
-
-        //avaliar a necessidade de todo este codigo validador da imagem. 
-       /*  if($this->validator($data) === false){
-            return ["error" => "invalid input"];
-        } */
-        // $_FILES
-        /* $bin = base64_decode($data["image"]); */
-
-        $file_name = bin2hex(random_bytes(16));
-        $file_extension = ".jpeg"; /* array_search(($data["media_type"]), $this->allowed_image_formats); */
-        $full_path = "images/" . $file_name . $file_extension;
-
-        /* file_put_contents($full_path, $bin); */
+    public function create ($data, $imageName) {
 
         $query = $this->db->prepare("
 
             INSERT INTO
                 recipes (user_id, title, instructions, image)
             VALUES
-                ( ?, ?, ?, ? )
-            
+                ( ?, ?, ?, ? ) 
         ");
         
         $query->execute([
             $_SESSION["user_id"], 
             $data["title"],
-            $data["instructions"],
-            $full_path //verificR
+            $data["instructions"], 
+            $imageName
         ]);
         
         $data["recipe_id"] = $this->db->lastInsertId(); 
         
         return $data;
     }
-    
+
+    public function addImage($image, $directory = "images/")
+    {
+        $filePath = $directory . basename($image["name"]);
+
+        if (move_uploaded_file($image["tmp_name"], $filePath)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function update($data, $recipe_id){
+
+        $query = $this->db->prepare("
+
+            UPDATE
+                recipes
+            SET 
+                title = ?,
+                instructions = ?,
+                image = ?
+            WHERE
+                recipe_id = ?
+        ");
+
+        $query->execute([
+
+            $data["title"],
+            $data["instructions"],
+            $data["image"],
+            $recipe_id
+        ]);
+    }
+
+    public function delete($recipe_id){
+
+        $query = $this->db->prepare("
+
+            DELETE FROM
+                recipes
+            WHERE
+                recipe_id = ?
+        ");
+
+        return $query->execute([$recipe_id]);
+    }
 }

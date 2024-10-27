@@ -1,9 +1,9 @@
 <?php
  
-$errorMessage = "An unexpected error has occurred.";
 $statusCode = http_response_code();
+$errorMessage = "An unexpected error has occurred.";
  
-$homeUrl = ROOT . "/";
+$home = ROOT . "/";
  
 switch ($statusCode) {
     case 400:

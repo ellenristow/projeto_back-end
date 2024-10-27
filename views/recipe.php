@@ -34,7 +34,25 @@
             </div>
         </div>
         <div>
-            <p><a href="<?php ROOT ?>/">Voltar para a Home</a></p>
+            <?php
+                if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] === $recipes["user_id"]) {
+
+                    echo '
+                        <button><a href="' .ROOT. '/recipeupdate/'.$recipes["recipe_id"].'">Editar Receita</a></button>
+                    ';
+                } 
+            ?>
+            <?php
+                if(isset($_SESSION["user_id"]) && $_SESSION["user_id"] === $recipes["user_id"]){
+
+                    echo '
+                        <form method="POST" action="' . ROOT . '/recipe/'. $recipes["recipe_id"].'">
+                            <input type="hidden" name="recipe_id" value="'.$recipes['recipe_id']. '">
+                            <button type="submit" name="delete">Deletar Receita</button>
+                        </form>
+                    ';    
+                }
+            ?>        
         </div>
     </main>
 </body>

@@ -11,7 +11,7 @@
             if (isset($_SESSION["user_id"])) {
 
                 echo '
-                       <h1> Bem vindo, ' . $_SESSION["name"] . '</h1>
+                       <h1> Olá, ' . htmlspecialchars($_SESSION["name"]) . '!</h1>
                 ';
             } else {
 

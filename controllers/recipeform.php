@@ -33,7 +33,7 @@ if (isset($_POST["send"])) {
             $_POST[$key] = htmlspecialchars(strip_tags(trim($value)));
         }
     }
-    //verificaçao para nao repetir o nome da imagem dado pelo usuario 
+  
     if (
         !empty($_POST["title"]) &&
         !empty($_POST["instructions"]) &&
@@ -43,7 +43,8 @@ if (isset($_POST["send"])) {
         mb_strlen($_POST["title"]) >= 3 &&
         mb_strlen($_POST["title"]) <= 50 &&
         mb_strlen($_POST["instructions"]) >= 50 &&
-        mb_strlen($_POST["instructions"]) <= 2000  
+        mb_strlen($_POST["instructions"]) <= 2000
+        //verificaçao tamanho da imagem  
     ) {
         $imageName = basename($image["name"]);
        
@@ -68,6 +69,3 @@ if (isset($_POST["send"])) {
 }
 
 require("views/recipeform.php");
-
-
-//pegar imagem pra mandar pra uma pasta, que ta no projeto, e depos pegar no nome da imagem.jpg e trazer para a view. 

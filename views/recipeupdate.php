@@ -6,20 +6,16 @@
     <title>Marmita</title>
 </head>
 <body>
-    <script>
-        const categories = <?php echo json_encode($categories); ?>;
-        const ingredients = <?php echo json_encode($ingredients); ?>;
-    </script>
-    <?php require("views/templates/nav.php"); ?>
+ <?php require("views/templates/nav.php"); ?>
     <main>
         <div>
-            <h2>Insira sua receita</h2>
+            <h2>Atualize a sua receita</h2>
         </div>
-        <form method="POST" action="<?php echo ROOT ?>/recipeform" enctype="multipart/form-data">
+        <form method="POST" action="<?php echo ROOT ?>/recipeupdate/<?php echo $recipe['recipe_id']; ?>" enctype="multipart/form-data">
             <div>
                 <label>
                     Nome da Receita
-                    <input type="text" name="title" required minlength="3" maxlength="50">
+                    <input type="text" name="title" value="<?php echo htmlspecialchars($recipe['title']); ?>" required minlength="3" maxlength="50">
                 </label>
                 <br><br>
                 <div id="categories-container">
@@ -67,12 +63,12 @@
                     </div>
                 </div>
                 <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
-                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Deletar Ingrediente</button>
+                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Adicionar Ingrediente</button>
                 <br><br>
                 <div>
                     <label>
                         Instruções
-                        <textarea name="instructions" rows="5" cols="30" required minlength="50" maxlength="2000"></textarea>
+                        <textarea name="instructions" rows="5" cols="30" required minlength="50" maxlength="2000"><?php echo htmlspecialchars($recipe['instructions'] ?? ''); ?></textarea>
                     </label>
                 </div>
                 <br>
@@ -83,7 +79,7 @@
             </div>
             <br>
             <div>
-                <button type="submit" name="send">Enviar</button>
+                <button type="submit" name="send">Atualizar</button>          
             </div> 
         </form>
     </main>

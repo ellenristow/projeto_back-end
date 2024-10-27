@@ -20,4 +20,18 @@ if (empty($recipes)) {
 $ingredientsModel = new Ingredients();
 $ingredients = $ingredientsModel->getItemByRecipe($id);
 
+if (isset($_POST["delete"])) {
+
+    $recipeId = $_POST["recipe_id"];
+    $deleteRecipe = $model->delete($recipeId);
+
+    if ($deleteRecipe) {
+        header("Location: ".ROOT . "/");
+        exit();
+    }else{
+        $message = "Não foi possível deletar a receita. Tente novamente.";
+    }
+
+}
+
 require("views/recipe.php");
