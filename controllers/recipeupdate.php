@@ -4,7 +4,13 @@ require("models/ingredients.php");
 require("models/category.php");
 require("models/recipes.php");
 
-$recipeId = isset($url_parts[2]) ? intval(($url_parts[2])) : null;
+$recipeId = null;
+if(isset($url_parts[2])){
+    $recipeId = intval($url_parts[2]);
+}
+
+$modelRecipe = new Recipes();
+$recipe = $modelRecipe->getItem($recipeId);
 
 if (!$recipeId) {
     http_response_code(404);
@@ -12,13 +18,24 @@ if (!$recipeId) {
     exit();
 }
 
-$modelRecipe = new Recipes();
-$recipe = $modelRecipe->getItem($recipeId);
-
 if (!$recipe) {
     http_response_code(404);
     include("views/error.php");
     exit();
+}
+
+$ingredientsModel = new Ingredients();
+$ingredients = $ingredientsModel->getItemByRecipe($recipeId);
+
+$categoryModel = new Category();
+$categories = $categoryModel->getItemByRecipe($recipeId);
+
+$categoryIdSelected = [];
+
+if(isset($categories) && is_array($categories)) {
+    foreach($categories as $category){
+        $categoryIdSelected[] = $category["category_id"];
+    }
 }
     
 if (isset($_POST["send"])) {
@@ -36,7 +53,7 @@ if (isset($_POST["send"])) {
     $image = $_FILES["image"];
     $imageName = basename($image["name"]);
     
-    $updatedRecipe = $modelRecipe->update($recipeId, $_POST, $imageName);
+    $updatedRecipe = $modelRecipe->update($recipeId, $imageName);
 
     if ($updatedRecipe) {
         header("Location: ".ROOT."/recipe/" . $recipeId);

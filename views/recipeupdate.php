@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
-                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Adicionar Ingrediente</button>
+                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Deletar Ingrediente</button>
                 <br><br>
                 <div>
                     <label>
@@ -83,6 +83,6 @@
             </div> 
         </form>
     </main>
-    <script src="../js/recipeform.js"></script>
+    <script src="../js/recipeupdate.js"></script>
 </body>
 </html>

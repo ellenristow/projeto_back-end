@@ -34,24 +34,27 @@
         </div>
         <div>
         <h2>Receitas</h2>
-        <?php 
-            foreach ($recipes as $recipe){
-                echo '
-                    <li>
+            <?php 
+                foreach ($recipes as $recipe){
+                    echo '
                         <h3>
-                        <a href="' .ROOT. '/recipe/'
-                        .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
+                            <a href="' .ROOT. '/recipe/'
+                            .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
                         </h3> ';
                         if(!empty($recipe["image"])){
-                            echo ' <img src="images/' . $recipe['image'] . '" alt="Imagem da receita"/> ';
+                            echo ' <img src="images/' . $recipe['image'] . '" alt="Imagem da receita" /> 
+                            ';
                         }
-                    echo '    
-                        <h4>Categoria: ' .$recipe["category"]. '</h4>
-                        <button>&#9825;</button><p> ' .$recipe["like_count"]. '</p>
-                    </li>
-                ';
-            }
-        ?>
+                        echo '    
+                            <h4>Categoria: ' .$recipe["category"]. '</h4>
+            
+                            <div id="recipe-like' .$recipe["recipe_id"]. '">
+                                <button id="like-btn-' .$recipe["recipe_id"]. '" onclick="recipeLike(' .$recipe["recipe_id"]. ')" >&#9825;</button>
+                                <p id="like-count' .$recipe["recipe_id"]. '"> '.$recipe["like_count"]. '</p>
+                            </div>
+                            ';
+                }
+            ?>
         </div>
     </main>
 </body>

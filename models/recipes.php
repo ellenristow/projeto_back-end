@@ -107,7 +107,20 @@ class Recipes extends Base
         return false;
     }
 
-    public function update($data, $recipe_id){
+    public function addLike($recipeId){
+
+        $query = $this->db->prepare("
+
+            INSERT INTO 
+                recipes_likes (recipe_id, recipe_like)
+            VALUE
+                recipe
+            (:recipe_id, 1)
+        ");
+        $query->execute(['recipe_id' => $recipeId]);
+    }
+
+    public function update($data, $recipe_id): void{
 
         $query = $this->db->prepare("
 
