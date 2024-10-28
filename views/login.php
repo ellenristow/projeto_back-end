@@ -7,10 +7,9 @@
 </head>
 <body>
     <?php require("views/templates/nav.php"); ?>
-    <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
+    <h1>Login</h1>
     <main>
         <div>
-            <h2>Login</h2>
             <?php
                 if(isset($message)){
                     echo '<p role="alert">' .$message. '</p>';
@@ -36,9 +35,6 @@
                     <a href="<?php ROOT ?>/register/"> Crie sua conta aqui!</a>
                 </p>
             </form>
-        </div>
-        <div>
-            <p><a href="<?php ROOT ?>/">Voltar para a Home</a></p>
         </div>
     </main>
 </body>

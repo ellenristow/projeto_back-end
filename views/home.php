@@ -40,22 +40,23 @@
                         <h3>
                             <a href="' .ROOT. '/recipe/'
                             .$recipe["recipe_id"]. '">' .$recipe["title"]. '</a>
-                        </h3> ';
-                        if(!empty($recipe["image"])){
-                            echo ' <img src="images/' . $recipe['image'] . '" alt="Imagem da receita" /> 
-                            ';
-                        }
-                        echo '    
-                            <h4>Categoria: ' .$recipe["category"]. '</h4>
-            
-                            <div id="recipe-like' .$recipe["recipe_id"]. '">
-                                <button id="like-btn-' .$recipe["recipe_id"]. '" onclick="recipeLike(' .$recipe["recipe_id"]. ')" >&#9825;</button>
-                                <p id="like-count' .$recipe["recipe_id"]. '"> '.$recipe["like_count"]. '</p>
-                            </div>
-                            ';
+                        </h3> 
+                        <h4>Categoria: ' .$recipe["category"]. '</h4>
+                        ';
+                    if(!empty($recipe["image"])){
+                        echo ' <img src="images/' . $recipe['image'] . '" alt="Imagem da receita" /> 
+                        
+                        ';
+                    }
                 }
             ?>
         </div>
     </main>
 </body>
 </html>
+
+
+<!-- <div id="recipe-like' .$recipe["recipe_id"]. '">
+                                <button id="like-btn-' .$recipe["recipe_id"]. '" onclick="recipeLike(' .$recipe["recipe_id"]. ')" >&#9825;</button>
+                                <p id="like-count' .$recipe["recipe_id"]. '"> '.$recipe["like_count"]. '</p>
+                            </div> -->

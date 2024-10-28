@@ -7,10 +7,9 @@
 </head>
 <body>
     <?php require("views/templates/nav.php"); ?>
-    <h1><a href="<?php ROOT ?>/">Bem Vindo Marmiteiro!</a></h1>
+    <h1>Crie uma conta</h1>
     <main>
         <div>
-            <h2>Crie uma conta</h2>
             <?php
                 if( isset($message)){
                     echo '<p role="alert">' .$message. '</p>';

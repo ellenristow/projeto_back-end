@@ -4,8 +4,8 @@ require("models/users.php");
 
 $model = new Users();
 
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+if (isset($_SESSION["user_id"])) {
+    $id = $_SESSION["user_id"];
 } else {
     http_response_code(400); 
     include("controllers/error.php");
