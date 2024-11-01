@@ -1,4 +1,27 @@
-function updateUnitMeasurement() {}
+/* document.querySelectorAll('.delete-category').forEach(button => {
+	button.addEventListener('click', function () {
+		const recipeCategoryId = this.getAttribute('data-id');
+
+		if (!confirm('Deseja apagar esta categoria?')) return;
+
+		fetch('controllers/requests.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ action: 'delete_category', recipe_category_id: recipeCategoryId }),
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					this.closest('.category-group').remove();
+				} else {
+					alert('Erro ao apagar a categoria. Tente novamente.');
+				}
+			})
+			.catch(error => console.error('Erro na requisição:', error));
+	});
+}); */
 
 function addCategory() {
 	const categoriesContainer = document.getElementById('categories-container');

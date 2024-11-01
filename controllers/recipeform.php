@@ -38,13 +38,14 @@ if (isset($_POST["send"])) {
         !empty($_POST["title"]) &&
         !empty($_POST["instructions"]) &&
         !empty($_POST["ingredient_id"]) && is_array($_POST["ingredient_id"]) &&
-        !empty($_POST["quantity"]) && is_array($_POST["quantity"]) &&
-        !empty($_POST["category_id"]) && is_array($_POST["category_id"]) &&
+        is_array($_POST["quantity"]) &&
+        !empty($_POST["category_id"]) && is_array($_POST["category_id"]) && 
         mb_strlen($_POST["title"]) >= 3 &&
         mb_strlen($_POST["title"]) <= 50 &&
         mb_strlen($_POST["instructions"]) >= 50 &&
-        mb_strlen($_POST["instructions"]) <= 2000
-        //verificaçao tamanho da imagem  
+        mb_strlen($_POST["instructions"]) <= 2000 &&
+        !empty($_FILES["image"]) &&
+        $_FILES["image"]["size"] <= (1024 * 1024)  
     ) {
         $imageName = basename($image["name"]);
        
@@ -63,9 +64,13 @@ if (isset($_POST["send"])) {
         exit();
 
     } else {
-        $message = "A receita não foi criada. Verifique os dados e tente novamente.";
+        if 
+        (!empty($_FILES["image"]) && $_FILES["image"]["size"] > (1024 * 1024)) {
+            $message = "A imagem não pode exceder 1MB";
+        }else{ 
+            $message = "A receita não foi criada. Verifique os dados e tente novamente.";
+        }
     }
-    
 }
 
 require("views/recipeform.php");

@@ -6,7 +6,11 @@
     <title>Marmita</title>
 </head>
 <body>
- <?php require("views/templates/nav.php"); ?>
+    <script>
+        const categories = <?php echo json_encode($categories); ?>;
+        const ingredients = <?php echo json_encode($ingredients); ?>;
+    </script>
+    <?php require("views/templates/nav.php"); ?>
     <main>
         <div>
             <h2>Atualize a sua receita</h2>
@@ -19,20 +23,24 @@
                 </label>
                 <br><br>
                 <div id="categories-container">
+                    <?php
+                    foreach($categoriesByRecipe as $categoryRecipe){?>
                     <div class="category-group">
                         <label>
                             Categoria
-                            <select name="category_id[]">
+                             <select name="category_id[]">
                                 <?php
-                                    if (isset($categories) && is_array($categories) && count($categories) > 0) {
-                                        foreach($categories as $category){
-                                            echo '<option value="' . $category["category_id"] . '">' . htmlspecialchars($category["category_name"]) . '</option>';  
-                                        }
-                                    } else {
-                                        echo '<option value="">Nenhuma categoria disponível</option>';
+                                    foreach($categories as $category){
+                                        $selected = $categoryRecipe["category_id"] == $category["category_id"] ? "selected" : "";
+                                        echo '<option value="' . $category["category_id"] . '" ' . $selected . '>' . htmlspecialchars($category["category_name"]) . '</option>';  
                                     }
                                 ?>
                             </select>
+                                <button type="button" class="delete-category" data-id="<?= $categoryRecipe['recipe_category_id'] ?>">Deletar Categoria</button> 
+                                <input type="hidden" name="recipe_category_id[]" value="<?= $categoryRecipe['recipe_category_id'] ?>">
+                            <?php
+                    }
+                            ?>
                         </label>
                     </div>
                 </div>
@@ -40,30 +48,35 @@
                 <button type="button" id="delete-category" onclick="deleteCategory()">Deletar Categoria</button>
                 <br><br>
                 <div id="ingredients-container">
-                    <div class="ingredient-group">
-                        <label>
-                            Ingrediente
-                            <select name="ingredient_id[]">
-                                <?php
-                                    if (isset($ingredients) && is_array($ingredients) && count($ingredients) > 0) {
-                                        foreach($ingredients as $ingredient){
-                                            echo '<option value="' . $ingredient["ingredient_id"] . '">' . htmlspecialchars($ingredient["ingredient_name"]) . ' - ' . htmlspecialchars($ingredient["unit_measurement"]) . '</option>';  
-                                        }
-                                    } else {
-                                        echo '<option value="">Nenhum ingrediente disponível</option>';
+                    <?php
+                    foreach($ingredientsByRecipe as $ingredientRecipe) {
+                    ?>
+                        <div class="ingredient-group">
+                            <label>
+                                Ingrediente
+                                <select name="ingredient_id[]">
+                                    <?php
+                                    foreach($ingredients as $ingredient) {
+                                        $selectedIngredient = $ingredientRecipe["ingredient_id"] == $ingredient["ingredient_id"] ? "selected" : "";
+                                        echo '<option value="' . $ingredient["ingredient_id"] . '" ' . $selectedIngredient . '>' . htmlspecialchars($ingredient["ingredient_name"]) . '</option>'; 
                                     }
-                                ?>
-                            </select>
-                        </label>
-                        <label>
-                            Quantidade
-                            <input type="text" name="quantity[]" minlength="1" maxlength="10">
-                        </label>
-                        <span class="unit_measurement"></span>
-                    </div>
+                                    ?>
+                                </select>
+                            </label>
+                            <label>
+                                Quantidade
+                                <input type="text" name="quantity[]" value="<?php echo htmlspecialchars($ingredientRecipe['quantity']); ?>" required minlength="1" maxlength="10">
+                            </label>
+                            <button type="button" class="delete-ingredient" data-id="<?= $ingredientRecipe['recipe_ingredient_id'] ?>">Deletar Ingrediente</button> 
+                            <input type="hidden" name="recipe_ingredient_id[]" value="<?= $ingredientRecipe['recipe_ingredient_id'] ?>">
+                            <span class="unit_measurement"></span>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
-                <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
-                <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Deletar Ingrediente</button>
+                    <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>
+                    <button type="button" id="delete-ingredient" onclick="deleteIngredient()">Deletar Ingrediente</button>
                 <br><br>
                 <div>
                     <label>
@@ -74,7 +87,7 @@
                 <br>
                 <label>
                     Imagem (opcional)
-                    <input type="file" name="image">
+                    <input type="file" name="image"> 
                 </label>
             </div>
             <br>

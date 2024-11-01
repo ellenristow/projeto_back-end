@@ -1,5 +1,3 @@
-function updateUnitMeasurement() {}
-
 function addCategory() {
 	const categoriesContainer = document.getElementById('categories-container');
 	const newCategoryDiv = document.createElement('div');
@@ -37,7 +35,7 @@ function addIngredient() {
         </label>
         <label>
             Quantidade
-            <input type="text" name="quantity[]" required minlength="1" maxlength="10">
+            <input type="text" name="quantity[]" minlength="1" maxlength="10">
         </label>
         <span class="unit_measurement"></span>
     `;

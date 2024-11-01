@@ -51,7 +51,7 @@ class Recipes extends Base
         return $query->fetchAll();
     }
 
-    public function getItem($recipe_id){
+    public function getItem($id){
         $query = $this->db->prepare("
             SELECT
                 r.recipe_id, 
@@ -70,7 +70,7 @@ class Recipes extends Base
                 recipe_id = ?
         ");
 
-        $query->execute([$recipe_id]);
+        $query->execute([$id]);
 
         return $query->fetch();
     }
@@ -120,7 +120,27 @@ class Recipes extends Base
         $query->execute(['recipe_id' => $recipeId]);
     }
 
-    public function update($data, $recipe_id): void{
+    public function update($data, $recipe_id){
+
+        if(!isset($data["title"], $data["instructions"])){
+            return false;
+        }
+
+        $query = $this->db->prepare("
+
+            SELECT
+                image
+            FROM 
+                recipes
+            WHERE
+                recipe_id = ?
+        ");
+
+        $query->execute(["recipe_id"]);
+
+        $existingImage = $query->fetchColumn();
+
+        $image = isset($data["image"]) && !empty($data["image"]) ? $data["image"] : $existingImage;
 
         $query = $this->db->prepare("
 
@@ -138,7 +158,7 @@ class Recipes extends Base
 
             $data["title"],
             $data["instructions"],
-            $data["image"],
+            $image,
             $recipe_id
         ]);
     }

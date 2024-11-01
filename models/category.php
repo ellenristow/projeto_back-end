@@ -25,7 +25,8 @@ class Category extends Base
             SELECT 
                 c.category_id, 
                 rhc.recipe_id, 
-                c.category_name
+                c.category_name,
+                rhc.recipe_category_id
             FROM
                 recipes_has_category rhc
             INNER JOIN
@@ -58,6 +59,44 @@ class Category extends Base
         }
 
         return $data;
-    }    
+    }
+    
+    public function updateCategory($data){
+
+        $query = $this->db->prepare("
+
+            UPDATE
+                recipes_has_category 
+            SET
+               category_id = ?
+            WHERE
+                recipe_category_id = ?
+        
+        ");
+
+        $query->execute([
+            $data["category_id"],
+            $data["recipe_category_id"]
+        ]);
+
+        return $data;
+
+    }
+
+    public function deleteCategoryById($recipeCategoryId) {
+
+        $query = $this->db->prepare("
+
+            DELETE FROM 
+                recipes_has_category 
+            WHERE 
+                recipe_category_id = :recipe_category_id
+        
+        ");
+
+        $query->execute([
+            ":recipe_category_id" => $recipeCategoryId
+        ]);
+    }
 }
 

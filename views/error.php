@@ -7,10 +7,10 @@
 </head>
 <body>
     <div class="error-container">
-        <h1>Error <?= htmlspecialchars($statusCode) ?></h1>
-        <h3><?= htmlspecialchars($errorMessage)?></h3>
+        <h1>Error <?= isset($statusCode) ? htmlspecialchars($statusCode) : 'Unknown' ?></h1>
+        <h3><?= isset($errorMessage) ? htmlspecialchars($errorMessage) : 'An unexpected error occurred.' ?></h3>
  
-        <a href="<?= htmlspecialchars($home) ?>" class="btn">Home</a>
+        <a href="<?= isset($home) ? htmlspecialchars($home) : '/' ?>" class="btn">Home</a>
     </div>
  
 </body>

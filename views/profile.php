@@ -17,11 +17,12 @@
             ';
             ?>
             <div>
-                <form method="POST" action="<?php echo ROOT ?>/profile/<?php echo $_SESSION['user_id']; ?>">
+                <form method="POST" action="<?php echo ROOT ?>/profile/<?php echo $_SESSION['user_id']; ?>" onsubmit="return confirmDelete()">
                     <button type="submit" name="delete">Deletar Conta</button>
                 </form>
             </div>
         </div>
     </main>
+    <script src="../js/confirm-delete.js"></script>
 </body>
 </html>

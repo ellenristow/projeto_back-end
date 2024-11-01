@@ -83,17 +83,24 @@ class Ingredients extends Base {
         return $data;
     }
 
-    public function updateIngredients($data, $recipe_id)
+    public function updateIngredients($data)
     {
 
         $query = $this->db->prepare("
             UPDATE
                 recipes_has_ingredients
             SET
+                ingredient_id = ?,
                 quantity = ?
             WHERE
-                recipe_id = ?
-                AND ingredient_id = ?
+                recipe_ingredient_id = ?
         ");
+
+        $query->execute([
+            $data["ingredient_id"],
+            $data["recipe_ingredient_id"]
+        ]);
+
+        return $data;
     }
 }

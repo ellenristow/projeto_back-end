@@ -10,8 +10,15 @@
     <h1><?php echo $recipes["title"]; ?></h1>
     <main>
         <div>
-            <h2>Ingredientes</h2>
             <div>
+                <?php
+                if (!empty($recipes["image"]) && isset($recipes["recipe_id"])) {
+                    echo '<img src="' . ROOT . '/images/' . $recipes['image'] . '" alt="Imagem da receita ' . $recipes["recipe_id"] . '" />';
+                } 
+                ?>
+            </div> 
+            <div>
+                <h2>Ingredientes</h2>
                 <ul>
                     <?php 
                     foreach ($ingredients as $ingredient){
@@ -46,7 +53,7 @@
                 if(isset($_SESSION["user_id"]) && $_SESSION["user_id"] === $recipes["user_id"]){
 
                     echo '
-                        <form method="POST" action="' . ROOT . '/recipe/'. $recipes["recipe_id"].'">
+                        <form method="POST" action="' . ROOT . '/recipe/'. $recipes["recipe_id"].'" onsubmit="return confirmDelete()">
                             <input type="hidden" name="recipe_id" value="'.$recipes['recipe_id']. '">
                             <button type="submit" name="delete">Deletar Receita</button>
                         </form>
@@ -55,6 +62,7 @@
             ?>        
         </div>
     </main>
+    <script src="../js/confirm-delete.js"></script>
 </body>
 </html>
 
