@@ -96,11 +96,41 @@ if (isset($_POST["send"])) {
         }
     }
 
-    if ($updatedCategory || $updatedRecipe) {
+    /* if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recipe_ingredient_id'])){
+        $recipeIngredientId = $_POST["recipe_ingredient_id"] ?? [];
+        $ingredientIds = $_POST["ingredient_id"] ?? [];
+        $quantities = $_POST["quantity"] ?? [];
+
+        $updatedIngredient = true;
+
+        foreach($recipeIngredientId as $index => $ingredientIdValue){
+            if(isset($ingredientIds[$index]) && isset($quantities[$index])) {
+                $data = [
+                    "recipe_id" => $id,
+                    "ingredient_id" => $ingredientIds[$index],
+                    "quantity" => $quantities[$index]
+                ];
+
+                $updatedIngredient = $ingredientsModel->updateIngredients($data, $ingredientIdValue) && $updatedIngredient;
+            }
+        }
+    } */
+
+    /* $existingIngredientIds = array_column($ingredientsByRecipe, 'ingredient_id');
+    foreach($existingIngredientIds as $existingIngredientId){
+        if(!in_array($existingIngredientId, $ingredientIds)){
+            $ingredientsModel->deleteIngredientById($existingIngredientId);
+        }
+    } */
+
+    if ($updatedRecipe || $updatedCategory) {
+
+       
         $_SESSION['success_message'] = "A receita foi atualizada com sucesso!";
 
         $recipe = $modelRecipe->getItem($id);
         $categoriesByRecipe = $categoryModel->getItemByRecipe($id);
+        /* $ingredientsByRecipe = $ingredientsModel->getItemByRecipe($id); */
 
         header("Location: ".ROOT."/recipe/".$recipe['recipe_id']);
         exit();
@@ -109,7 +139,7 @@ if (isset($_POST["send"])) {
 
         header("Location: ".ROOT."/recipeupdate/".$id); 
         exit();
-    }
+    }   
 }
 
 

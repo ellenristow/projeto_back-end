@@ -35,7 +35,7 @@ function addIngredient() {
         </label>
         <label>
             Quantidade
-            <input type="text" name="quantity[]" minlength="1" maxlength="10">
+            <input type="number" name="quantity[]" minlength="1" maxlength="10">
         </label>
         <span class="unit_measurement"></span>
     `;
