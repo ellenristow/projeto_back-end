@@ -98,9 +98,20 @@ class Ingredients extends Base {
 
         $query->execute([
             $data["ingredient_id"],
+            $data["quantity"],
             $data["recipe_ingredient_id"]
         ]);
 
         return $data;
     }
+
+    public function deleteIngredientById($recipeIngredientId) {
+    $query = $this->db->prepare("
+        DELETE FROM 
+            recipes_has_ingredients 
+        WHERE 
+            recipe_ingredient_id = ?
+    ");
+    return $query->execute([$recipeIngredientId]);
+}
 }

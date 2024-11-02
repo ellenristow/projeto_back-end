@@ -19,6 +19,16 @@ if (empty($recipe)) {
     exit();
 }
 
+$categoryModel = new Category();
+$categoriesByRecipe = $categoryModel->getItemByRecipe($id);
+$categories = $categoryModel->get();
+
+if(isset($categories) && is_array($categories)) {
+    foreach($categories as $category){
+        $categoryIdSelected[] = $category["category_id"];
+    }
+}
+
 $ingredientsModel = new Ingredients();
 $ingredientsByRecipe = $ingredientsModel->getItemByRecipe($id);
 $ingredients = $ingredientsModel->get();
@@ -28,17 +38,7 @@ if(isset($ingredients) && is_array($ingredients)) {
         $ingredientIdSelected[] = $ingredient["ingredient_id"];
     }
 }
-
-$categoryModel = new Category();
-$categoriesByRecipe = $categoryModel->getItemByRecipe($id);
-$categories = $categoryModel->get();
-
-if(isset($categories) && is_array($categories)) {
-    foreach($categories as $category){
-        $CategoryIdSelected[] = $category["category_id"];
-    }
-}
-
+    
 if (isset($_POST["send"])) {
 
     /* echo "<pre>";
@@ -71,42 +71,44 @@ if (isset($_POST["send"])) {
         $modelRecipe->addImage($image);
     }
 
-    if (!empty($_POST["recipe_ingredient_id"]) && !empty($_POST["ingredient_id"])) {
-        $recipeIngredientId = $_POST["recipe_ingredient_id"];
-        $IngredientIds = $_POST["ingredient_id"];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recipe_category_id'])) {
+        $recipeCategoryId = $_POST['recipe_category_id'];
+        $categoryIds = $_POST['category_id'];
 
-        foreach ($recipeIngredientId as $index => $recipeIngredientIdValue) {
+        $updatedCategory = true;
+
+        foreach ($recipeCategoryId as $index => $recipeCategoryIdValue) {
             $data = [
-                "recipe_ingredient_id" => $recipeIngredientIdValue,
                 "recipe_id" => $id,
-                "ingredient_id" => $IngredientIds[$index]
+                "category_id" => $categoryIds[$index]
             ];
 
-            $updatedCategory = $categoryModel->updateCategory($data);
+            $updatedCategory = $categoryModel->updateCategory($data, $recipeCategoryIdValue) && $updatedCategory;
         }
     }
 
-    if (!empty($_POST["recipe_ingredient_id"]) && !empty($_POST["ingredient_id"])) {
-        $recipeIngredientId = $_POST["recipe_ingredient_id"];
-        $ingredientIds = $_POST["ingredient_id"];
+    $existingCategoryIds = array_column($categoriesByRecipe, 'category_id');
 
-        foreach ($recipeIngredientId as $index => $recipeIngredientIdValue) {
-            $data = [
-                "recipe_ingredient_id" => $recipeIngredientIdValue,
-                "recipe_id" => $id,
-                "ingredient_id" => $ingredientIds[$index], 
-                "quantity" => $quanitities[$index]
-            ];
-
-            $updatedIngredient = $ingredientsModel->updateIngredients($data);
+    foreach($existingCategoryIds as $existingCategoryId){
+        
+        if (!in_array($existingCategoryId, $categoryIds)){
+            $categoryModel->deleteCategoryById($existingCategoryId);
         }
     }
 
-    if ($updatedCategory || $updatedIngredient) {
-        header("Location: ".ROOT."/");
+    if ($updatedCategory || $updatedRecipe) {
+        $_SESSION['success_message'] = "A receita foi atualizada com sucesso!";
+
+        $recipe = $modelRecipe->getItem($id);
+        $categoriesByRecipe = $categoryModel->getItemByRecipe($id);
+
+        header("Location: ".ROOT."/recipe/".$recipe['recipe_id']);
         exit();
     } else {
-        $message = "A receita não foi atualizada. Verifique os dados e tente novamente.";
+        $_SESSION['error_message'] = "A receita não foi atualizada. Verifique os dados e tente novamente.";
+
+        header("Location: ".ROOT."/recipeupdate/".$id); 
+        exit();
     }
 }
 

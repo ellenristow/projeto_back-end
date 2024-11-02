@@ -9,6 +9,15 @@
     <?php require("views/templates/nav.php"); ?>        
     <h1><?php echo $recipes["title"]; ?></h1>
     <main>
+        <?php
+            if(isset($_SESSION['success_message'])){
+                    echo '<p role="alert">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                    unset($_SESSION['success_message']);
+            }elseif(isset($_SESSION['error_message'])){
+                echo '<p role="alert">' . htmlspecialchars($_SESSION['error_message']) . '</p>';
+                unset($_SESSION['error_message']);
+            };
+        ?>
         <div>
             <div>
                 <?php

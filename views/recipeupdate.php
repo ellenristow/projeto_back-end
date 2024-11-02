@@ -36,8 +36,7 @@
                                     }
                                 ?>
                             </select>
-                                <button type="button" class="delete-category" data-id="<?= $categoryRecipe['recipe_category_id'] ?>">Deletar Categoria</button> 
-                                <input type="hidden" name="recipe_category_id[]" value="<?= $categoryRecipe['recipe_category_id'] ?>">
+                            <input type="hidden" name="recipe_category_id[]" value="<?= $categoryRecipe['recipe_category_id'] ?>">
                             <?php
                     }
                             ?>
@@ -67,9 +66,6 @@
                                 Quantidade
                                 <input type="text" name="quantity[]" value="<?php echo htmlspecialchars($ingredientRecipe['quantity']); ?>" required minlength="1" maxlength="10">
                             </label>
-                            <button type="button" class="delete-ingredient" data-id="<?= $ingredientRecipe['recipe_ingredient_id'] ?>">Deletar Ingrediente</button> 
-                            <input type="hidden" name="recipe_ingredient_id[]" value="<?= $ingredientRecipe['recipe_ingredient_id'] ?>">
-                            <span class="unit_measurement"></span>
                         </div>
                         <?php
                     }
@@ -99,3 +95,4 @@
     <script src="../js/recipeupdate.js"></script>
 </body>
 </html>
+

@@ -63,7 +63,6 @@
                             Quantidade
                             <input type="text" name="quantity[]" minlength="1" maxlength="10">
                         </label>
-                        <span class="unit_measurement"></span>
                     </div>
                 </div>
                 <button type="button" id="add-ingredient" onclick="addIngredient()">Adicionar Ingrediente</button>

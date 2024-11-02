@@ -61,7 +61,37 @@ class Category extends Base
         return $data;
     }
     
-    public function updateCategory($data){
+       public function updateCategory($data, $recipe_category_id){
+
+        $queryGetRecipeId = $this->db->prepare("
+
+            SELECT 
+                recipe_id
+            FROM
+                recipes_has_category 
+            WHERE 
+                recipe_category_id = ?
+        ");
+
+        $queryGetRecipeId->execute([$recipe_category_id]);
+        $recipeId = $queryGetRecipeId->fetchColumn();
+
+         $queryCheck = $this->db->prepare("
+
+            SELECT COUNT(*) 
+            FROM 
+                recipes_has_category 
+            WHERE 
+                recipe_id = ? AND category_id = ?
+        ");
+    
+        $queryCheck->execute([$recipeId, $data["category_id"]]);
+        $count = $queryCheck->fetchColumn();
+
+        if ($count > 0) {
+
+            return false; 
+        }
 
         $query = $this->db->prepare("
 
@@ -74,12 +104,11 @@ class Category extends Base
         
         ");
 
-        $query->execute([
-            $data["category_id"],
-            $data["recipe_category_id"]
-        ]);
-
-        return $data;
+        if ($query->execute([$data["category_id"], $recipe_category_id])) {
+            return true; 
+        } else {
+            return false; 
+        }
 
     }
 
@@ -90,13 +119,12 @@ class Category extends Base
             DELETE FROM 
                 recipes_has_category 
             WHERE 
-                recipe_category_id = :recipe_category_id
+                recipe_category_id = ?
         
         ");
 
-        $query->execute([
-            ":recipe_category_id" => $recipeCategoryId
-        ]);
+        return $query->execute([ $recipeCategoryId ]);
     }
+
 }
 

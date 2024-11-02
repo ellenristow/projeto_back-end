@@ -1,10 +1,15 @@
 <?php
 
 /* require("models/category.php");
+require("models/ingredients.php");
+require("models/recipe.php");
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $data = json_decode(file_get_contents("php://input"), true);
+    $data = $_POST;
+
+    
 
     if (isset($data['action']) && $data['action'] === 'delete_category' && !empty($data['recipe_category_id'])) {
         $recipeCategoryId = (int)$data['recipe_category_id'];
