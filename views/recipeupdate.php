@@ -24,24 +24,25 @@
                 <br><br>
                 <div id="categories-container">
                     <?php
-                    foreach($categoriesByRecipe as $categoryRecipe){?>
-                    <div class="category-group">
-                        <label>
-                            Categoria
-                             <select name="category_id[]">
-                                <?php
+                    foreach($categoriesByRecipe as $categoryRecipe){
+                    ?>
+                        <div class="category-group">
+                            <label>
+                                Categorias
+                                <select name="category_id[]">
+                                    <?php
                                     foreach($categories as $category){
                                         $selected = $categoryRecipe["category_id"] == $category["category_id"] ? "selected" : "";
                                         echo '<option value="' . $category["category_id"] . '" ' . $selected . '>' . htmlspecialchars($category["category_name"]) . '</option>';  
                                     }
-                                ?>
-                            </select>
-                            <input type="hidden" name="recipe_category_id[]" value="<?= $categoryRecipe['recipe_category_id'] ?>">
-                            <?php
+                                    ?>
+                                </select>
+                                    <input type="hidden" name="recipe_category_id[]" value="<?= $categoryRecipe['recipe_category_id'] ?>">
+                    <?php
                     }
-                            ?>
-                        </label>
-                    </div>
+                    ?>
+                            </label>
+                        </div>
                 </div>
                 <button type="button" id="add-category" onclick="addCategory()">Adicionar Categoria</button>
                 <button type="button" id="delete-category" onclick="deleteCategory()">Deletar Categoria</button>
@@ -52,19 +53,20 @@
                     ?>
                         <div class="ingredient-group">
                             <label>
-                                Ingrediente
+                                Ingredientes
                                 <select name="ingredient_id[]">
                                     <?php
                                     foreach($ingredients as $ingredient) {
                                         $selectedIngredient = $ingredientRecipe["ingredient_id"] == $ingredient["ingredient_id"] ? "selected" : "";
-                                        echo '<option value="' . $ingredient["ingredient_id"] . '" ' . $selectedIngredient . '>' . htmlspecialchars($ingredient["ingredient_name"]) . '</option>'; 
+                                        echo '<option value="' . $ingredient["ingredient_id"] . '" ' . $selectedIngredient . '>' . htmlspecialchars($ingredient["ingredient_name"]) . ' - ' . htmlspecialchars($ingredient["unit_measurement"]) . '</option>'; 
                                     }
                                     ?>
                                 </select>
                             </label>
+                            
                             <label>
                                 Quantidade
-                                <input type="text" name="quantity[]" value="<?php echo htmlspecialchars($ingredientRecipe['quantity']); ?>" required minlength="1" maxlength="10">
+                                <input type="number" name="quantity[]" value="<?php echo htmlspecialchars($ingredientRecipe['quantity']); ?>" minlength="1" maxlength="10">
                             </label>
                         </div>
                         <?php

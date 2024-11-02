@@ -76,7 +76,7 @@ class Category extends Base
         $queryGetRecipeId->execute([$recipe_category_id]);
         $recipeId = $queryGetRecipeId->fetchColumn();
 
-         $queryCheck = $this->db->prepare("
+        $queryCheck = $this->db->prepare("
 
             SELECT COUNT(*) 
             FROM 

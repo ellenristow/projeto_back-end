@@ -83,35 +83,32 @@ class Ingredients extends Base {
         return $data;
     }
 
-    public function updateIngredients($data)
-    {
-
+    public function updateIngredients($data, $recipeIngredientId){
+       
         $query = $this->db->prepare("
-            UPDATE
+            UPDATE 
                 recipes_has_ingredients
-            SET
-                ingredient_id = ?,
+            SET 
+                ingredient_id = ?, 
                 quantity = ?
-            WHERE
+            WHERE 
                 recipe_ingredient_id = ?
         ");
-
-        $query->execute([
-            $data["ingredient_id"],
-            $data["quantity"],
-            $data["recipe_ingredient_id"]
+        
+        return $query->execute([
+            $data["ingredient_id"], 
+            $data["quantity"], 
+            $recipeIngredientId
         ]);
-
-        return $data;
     }
 
     public function deleteIngredientById($recipeIngredientId) {
-    $query = $this->db->prepare("
-        DELETE FROM 
-            recipes_has_ingredients 
-        WHERE 
-            recipe_ingredient_id = ?
-    ");
-    return $query->execute([$recipeIngredientId]);
-}
+        $query = $this->db->prepare("
+            DELETE FROM 
+                recipes_has_ingredients 
+            WHERE 
+                recipe_ingredient_id = ?
+        ");
+        return $query->execute([$recipeIngredientId]);
+    }
 }
