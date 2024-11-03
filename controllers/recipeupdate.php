@@ -40,12 +40,15 @@ if(isset($ingredients) && is_array($ingredients)) {
 }
     
 if (isset($_POST["send"])) {
-
+    /* Quando faço este debug, recebo os resultados de alteraçao dos ingredientes, contudo, não estão indo para a base de dados. */
     /* echo "<pre>";
     print_r($_POST);
     echo "</pre>";
     exit(); */
 
+    unset($_SESSION['error_message']);
+    unset($_SESSION['success_message']);
+    
     foreach ($_POST as $key => $value) {
         if (is_array($value)) {
             foreach ($value as &$item) {
@@ -85,15 +88,18 @@ if (isset($_POST["send"])) {
 
             $updatedCategory = $categoryModel->updateCategory($data, $recipeCategoryIdValue) && $updatedCategory;
         }
-    }
 
-    $existingCategoryIds = array_column($categoriesByRecipe, 'category_id');
-
-    foreach($existingCategoryIds as $existingCategoryId){
-        
-        if (!in_array($existingCategoryId, $categoryIds)){
-            $categoryModel->deleteCategoryById($existingCategoryId);
+        $existingCategoryIds = array_column($categoriesByRecipe, 'category_id');
+        foreach($existingCategoryIds as $existingCategoryId){
+            
+            if (!in_array($existingCategoryId, $categoryIds)){
+                $categoryModel->deleteCategoryById($existingCategoryId);
+            }
         }
+
+    }else{
+        
+        $updatedCategory = false;
     }
 
     /* if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recipe_ingredient_id'])){
@@ -102,7 +108,6 @@ if (isset($_POST["send"])) {
         $quantities = $_POST["quantity"] ?? [];
 
         $updatedIngredient = true;
-
         foreach($recipeIngredientId as $index => $ingredientIdValue){
             if(isset($ingredientIds[$index]) && isset($quantities[$index])) {
                 $data = [
@@ -114,17 +119,16 @@ if (isset($_POST["send"])) {
                 $updatedIngredient = $ingredientsModel->updateIngredients($data, $ingredientIdValue) && $updatedIngredient;
             }
         }
-    } */
 
-    /* $existingIngredientIds = array_column($ingredientsByRecipe, 'ingredient_id');
-    foreach($existingIngredientIds as $existingIngredientId){
+        $existingIngredientIds = array_column($ingredientsByRecipe, 'ingredient_id');
+        foreach($existingIngredientIds as $existingIngredientId){
         if(!in_array($existingIngredientId, $ingredientIds)){
             $ingredientsModel->deleteIngredientById($existingIngredientId);
         }
     } */
 
+    /* Neste if abaixo, eu tirei a variável $updatedIngredient porque estava dando erro na página ao tentar fazer o update  */
     if ($updatedRecipe || $updatedCategory) {
-
        
         $_SESSION['success_message'] = "A receita foi atualizada com sucesso!";
 
@@ -141,7 +145,6 @@ if (isset($_POST["send"])) {
         exit();
     }   
 }
-
 
 require("views/recipeupdate.php");
 

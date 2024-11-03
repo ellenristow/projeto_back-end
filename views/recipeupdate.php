@@ -63,7 +63,7 @@
                                     ?>
                                 </select>
                             </label>
-                            
+                            <!-- Aqui eu acredito que deveria inserir um input hidden, como fiz para as categorias, para que o update pudesse funcionar devidamente, mas me dá um erro no browser que não consegui identificar. -->
                             <label>
                                 Quantidade
                                 <input type="number" name="quantity[]" value="<?php echo htmlspecialchars($ingredientRecipe['quantity']); ?>" minlength="1" maxlength="10">
